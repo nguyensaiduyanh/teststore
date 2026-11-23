@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: single-store-service
+
+  datasource:
+    url: "jdbc:h2:mem:single-store-team;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE"
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+
+  flyway:
+    enabled: false
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-h2.sql
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+server:
+  port: ${SERVER_PORT:18080}
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:c2luZ2xlLXN0b3JlLXNlcnZpY2UtbG9jYWwtb25seS1zZWNyZXQtMjAyNi1jaGFuZ2UtbWU=}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+  seed:
+    enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

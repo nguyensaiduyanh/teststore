@@ -1,0 +1,57 @@
+package vn.edu.sales.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import vn.edu.sales.application.port.out.*;
+import vn.edu.sales.application.service.AuthService;
+import vn.edu.sales.application.service.CartService;
+import vn.edu.sales.application.service.CurrentUserService;
+import vn.edu.sales.application.service.InventoryService;
+import vn.edu.sales.application.service.OrderService;
+import vn.edu.sales.application.service.PasswordChangeService;
+import vn.edu.sales.application.service.ProductService;
+
+@Configuration
+public class ApplicationBeanConfig {
+    @Bean
+    CurrentUserService currentUserService(UserRepository users) {
+        return new CurrentUserService(users);
+    }
+
+    @Bean
+    CartService cartService(CartStore carts, UserRepository users, ProductRepository products,
+                            OrderService orders, TransactionRunner transactions) {
+        return new CartService(carts, users, products, orders, transactions);
+    }
+
+    @Bean
+    ProductService productService(ProductRepository products, InventoryStore inventory,
+                                  TransactionRunner transactions, UserRepository users) {
+        return new ProductService(products, inventory, transactions, users);
+    }
+
+    @Bean
+    OrderService orderService(OrderRepository orderRepository, ProductRepository productRepository,
+                              UserRepository userRepository, TransactionRunner transactionRunner,
+                              InventoryStore inventoryStore, OrderSearchStore orderSearchStore) {
+        return new OrderService(orderRepository, productRepository, userRepository,
+                transactionRunner, inventoryStore, orderSearchStore);
+    }
+
+    @Bean
+    AuthService authService(UserRepository users, PasswordHasher passwords, TokenProvider tokens) {
+        return new AuthService(users, passwords, tokens);
+    }
+
+    @Bean
+    InventoryService inventoryService(InventoryStore inventory, ProductRepository products,
+                                      UserRepository users, TransactionRunner transactions) {
+        return new InventoryService(inventory, products, users, transactions);
+    }
+
+    @Bean
+    PasswordChangeService passwordChangeService(UserRepository users, PasswordHasher passwords,
+                                                TransactionRunner transactions) {
+        return new PasswordChangeService(users, passwords, transactions);
+    }
+}
