@@ -1,0 +1,18 @@
+.idea/
+*.iml
+.env
+.env.*
+!.env.example
+http-client.private.env.json
+target/
+*.log
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Node.js dependencies
+node_modules/
+
+# Next.js
+.next/
+out/

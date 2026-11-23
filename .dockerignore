@@ -1,0 +1,15 @@
+.git
+.idea
+target
+.env
+.env.*
+*.log
+__pycache__
+*.py[cod]
+
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
